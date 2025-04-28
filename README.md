@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="assets/HistoSweepLogo.png" width="300"/>
+  <img src="assets/HistoSweepLogo.png" width="400"/>
 </p>
 
 
