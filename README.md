@@ -12,13 +12,14 @@ HistoSweep is an unsupervised, fast, computationally efficient tool designed to 
 
 ## 📂 How to Use HistoSweep
 
-HistoSweep is designed to be **easy to run**:
+HistoSweep is designed to be **easy to run** with no GPU requirements:
 
-1. **Download** the `HistoSweep/` folder from the GitHub repository.  
-   (It contains all `.py` scripts and the Jupyter Notebook.)
+1. **Download** the `HistoSweep/` folder from the HistoSweep GitHub repository.  
+   (It contains all `.py` scripts and the Jupyter Notebook)
 
-2. **Place** your H&E image in your working directory:
-   - If **unprocessed/unscaled**, name it: `he-raw.jpg`
+2. **Place** your H&E image in your working directory (e.g. HE/demo):
+   - If **unscaled/unprocessed**, name it: `he-raw.jpg`
+   - If **scaled/unprocessed**, name it: `he-scaled.jpg`
    - If **already scaled and preprocessed**, name it: `he.jpg`
 
 3. **Open** the Jupyter Notebook: `Run_HistoSweep.ipynb`
@@ -34,26 +35,26 @@ HistoSweep is designed to be **easy to run**:
 ### 🗾 USER-DEFINED PARAMETERS
 
 ```python
-# Path prefix to your H&E image folder
+# Path prefix to your H&E image folder (This folder should be placed inside the HistoSweep main directory)
 HE_prefix = 'HE/demo/'
 
 # Flag for whether to rescale the image
 need_scaling_flag = False  # True if image resolution ≠ 0.5µm (or desired size) per pixel
 
 # Flag for whether to preprocess the image
-need_preprocessing_flag = False  # True if image dimensions are not divisible by patch_size
+need_preprocessing_flag = False  # True if image dimensions are not divisible by patch_size (i.e. image needs padding)
 
 # The pixel size (in microns) of the raw H&E image
-pixel_size_raw = 0.5  # Typically provided by scanner metadata (e.g., 0.25 µm/pixel for 40x)
+pixel_size_raw = 0.5  # Typically provided by scanner metadata (e.g., ~0.25 µm/pixel for 40x)
 
 # Parameter used to determine the amount of density filtering (e.g., artifact removal)
-density_thresh = 100  # Typically 100; may need adjustment based on debris/artifacts
+density_thresh = 100  # Typically 100 works well; may need adjustment based on artifacts
 
 # Flag for whether to clean background (i.e., remove isolated debris and small specks outside tissue)
-clean_background_flag = True  # Set False if you want to preserve fibrous regions (e.g., adipose)
+clean_background_flag = True  # Set False if you want to preserve all fibrous regions (e.g., adipose)
 
 # Minimum object size for debris removal
-min_size = 10  # Lower for fibrous regions (e.g., 5), higher for large debris (e.g., 50)
+min_size = 10  # Lower for helping retain fibrous regions (e.g., 5), higher for large debris (e.g., 50)
 ```
 
 ### 📉 Additional Parameters (Typically Do Not Need to Change)
@@ -91,6 +92,7 @@ pixel_size = 0.5  # Final desired resolution; keep as 0.5µm for standardization
 - `mask-small.jpg`: Superpixel-level tissue mask.
 - `conserve_index_mask.pickle`: Pixel-level mask saved as pickle for easy downstream use.
 - `conserve_index_mask.pickle`: Superpixel-level mask saved as pickle for easy downstream use.
+- 'AdditionalPlots' : Folder containing additional plots intended to provide further insights into the filtering process.
 
 ---
 
@@ -120,5 +122,4 @@ pixel_size = 0.5  # Final desired resolution; keep as 0.5µm for standardization
 
 ---
 
-## 🚀 Happy sweeping!
 
