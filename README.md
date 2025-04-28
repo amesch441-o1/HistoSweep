@@ -83,13 +83,13 @@ pixel_size = 0.5  # Final desired resolution; keep as 0.5µm for standardization
 
 6. **Final Quality Sweep**: Combines all masks to retain only **high-confidence tissue regions**.
 
-7. **Output**: High-quality superpixel mask (`mask.jpg` and `mask-small.jpg`), visualizations, and QC plots.
+7. **Output**: High-quality superpixel mask (`mask.png` and `mask-small.png`), visualizations, and QC plots.
 
 ---
 
 ## 📁 Output Files
-- `mask.jpg`: Final pixel-level tissue mask.
-- `mask-small.jpg`: Superpixel-level tissue mask.
+- `mask.png`: Final pixel-level tissue mask.
+- `mask-small.png`: Superpixel-level tissue mask.
 - `conserve_index_mask.pickle`: Pixel-level mask saved as pickle for easy downstream use.
 - `conserve_index_mask.pickle`: Superpixel-level mask saved as pickle for easy downstream use.
 - 'AdditionalPlots' : Folder containing additional plots intended to provide further insights into the filtering process.
