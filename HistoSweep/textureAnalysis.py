@@ -90,7 +90,7 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
     })
 
     valid_features = features.dropna().reset_index(drop=True)
-    gmm = GaussianMixture(n_components=3, random_state=45)
+    gmm = GaussianMixture(n_components=4, random_state=45)
     labels = gmm.fit_predict(valid_features)
 
     cluster_map = np.full(mask.shape, np.nan)
