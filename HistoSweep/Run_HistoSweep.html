@@ -14694,6 +14694,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">load_image</span>
+<span class="kn">from</span> <span class="nn">saveParameters</span> <span class="kn">import</span> <span class="n">saveParams</span>
 <span class="kn">from</span> <span class="nn">computeMetrics</span> <span class="kn">import</span> <span class="n">compute_metrics</span>
 <span class="kn">from</span> <span class="nn">densityFiltering</span> <span class="kn">import</span> <span class="n">compute_low_density_mask</span>
 <span class="kn">from</span> <span class="nn">textureAnalysis</span> <span class="kn">import</span> <span class="n">run_texture_analysis</span>
@@ -14743,7 +14744,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14758,28 +14759,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Image loaded from HE/demo/he.jpg
-(18688, 8448, 3)
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -14819,7 +14798,23 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">he_std_norm_image_</span><span class="p">,</span> <span class="n">he_std_image_</span><span class="p">,</span> <span class="n">z_v_norm_image_</span><span class="p">,</span> <span class="n">z_v_image_</span><span class="p">,</span> <span class="n">ratio_norm_</span><span class="p">,</span> <span class="n">ratio_norm_image_</span> <span class="o">=</span> <span class="n">compute_metrics</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">saveParams</span><span class="p">(</span><span class="n">HE_prefix</span><span class="p">,</span> <span class="n">need_scaling_flag</span><span class="p">,</span> <span class="n">need_preprocessing_flag</span><span class="p">,</span> <span class="n">pixel_size_raw</span><span class="p">,</span><span class="n">density_thresh</span><span class="p">,</span><span class="n">clean_background_flag</span><span class="p">,</span><span class="n">min_size</span><span class="p">,</span><span class="n">patch_size</span><span class="p">,</span><span class="n">pixel_size</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">he_std_norm_image_</span><span class="p">,</span> <span class="n">he_std_image_</span><span class="p">,</span> <span class="n">z_v_norm_image_</span><span class="p">,</span> <span class="n">z_v_image_</span><span class="p">,</span> <span class="n">ratio_norm_</span><span class="p">,</span> <span class="n">ratio_norm_image_</span> <span class="o">=</span> <span class="n">compute_metrics</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">patch_size</span><span class="o">=</span><span class="n">patch_size</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14854,7 +14849,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># identify low density superpixels</span>
@@ -14866,44 +14861,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of superpixels selected for density filtering:&#39;</span><span class="p">,</span> <span class="n">mask1_lowdensity</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Total number of superpixels selected for density filtering: 8079
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14911,8 +14869,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform texture analysis </span>
-<span class="n">mask1_lowdensity_update</span> <span class="o">=</span> <span class="n">run_texture_analysis</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">HE_prefix</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">tissue_mask</span><span class="o">=</span><span class="n">mask1_lowdensity</span><span class="p">,</span>  <span class="n">glcm_levels</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total selected for density filtering: &#39;</span><span class="p">,</span> <span class="n">mask1_lowdensity</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -14920,46 +14877,21 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform texture analysis </span>
+<span class="n">mask1_lowdensity_update</span> <span class="o">=</span> <span class="n">run_texture_analysis</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">HE_prefix</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">tissue_mask</span><span class="o">=</span><span class="n">mask1_lowdensity</span><span class="p">,</span> <span class="n">patch_size</span><span class="o">=</span><span class="n">patch_size</span><span class="p">,</span> <span class="n">glcm_levels</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+</pre></div>
 
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>✅ Entropy map saved as &#39;glcm_entropy_map_colored.png&#39;
-✅ Energy map saved as &#39;glcm_energy_map_colored.png&#39;
-✅ Homogeneity map saved as &#39;glcm_homogeneity_map_colored.png&#39;
-
-=== GLCM Metric Means ===
-   homogeneity    energy   entropy
-0     0.524792  0.297466  0.619772
-1     0.269649  0.061622  0.858610
-2     0.386949  0.131555  0.774746
-
-=== Cluster Scores ===
-Cluster 0: Score = 0.2025
-Cluster 1: Score = -0.5273
-Cluster 2: Score = -0.2562
-
-=== Number of Observations per Cluster ===
-Cluster 0: 278
-Cluster 1: 1175
-Cluster 2: 661
-Total: 2114
-
-✅ Clustered texture map saved as &#39;cluster_labels_colored.png&#39;
-</pre>
+     </div>
 </div>
 </div>
-
-</div>
-
 </div>
 
 </div>
@@ -14978,11 +14910,27 @@ Total: 2114
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># identify low ratio superpixels</span>
 <span class="n">mask2_lowratio</span><span class="p">,</span> <span class="n">otsu_thresh</span> <span class="o">=</span> <span class="n">run_ratio_filtering</span><span class="p">(</span><span class="n">ratio_norm_</span><span class="p">,</span> <span class="n">mask1_lowdensity_update</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mask2_lowratio</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
      </div>
@@ -15001,16 +14949,15 @@ Total: 2114
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># generate final mask files</span>
-<span class="n">generate_final_mask</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">HE_prefix</span><span class="p">,</span> <span class="n">he</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">generate_final_mask</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">HE_prefix</span><span class="p">,</span> <span class="n">he</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> 
                     <span class="n">mask1_updated</span> <span class="o">=</span> <span class="n">mask1_lowdensity_update</span><span class="p">,</span> <span class="n">mask2</span> <span class="o">=</span> <span class="n">mask2_lowratio</span><span class="p">,</span> 
                     <span class="n">clean_background</span> <span class="o">=</span> <span class="n">clean_background_flag</span><span class="p">,</span> 
                     <span class="n">super_pixel_size</span><span class="o">=</span><span class="n">patch_size</span><span class="p">,</span> <span class="n">minSize</span> <span class="o">=</span> <span class="n">min_size</span><span class="p">)</span>
@@ -15019,27 +14966,6 @@ Total: 2114
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>✅ Final masks saved in: HistoSweep_Output
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -15054,27 +14980,30 @@ Total: 2114
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div>generate_additionalPlots(prefix = HE_prefix, 
+                         he = image,
+                         he_std_image = he_std_image_,
+                         he_std_norm_image = he_std_norm_image_, 
+                         z_v_image = z_v_image_,
+                         z_v_norm_image = z_v_norm_image_, 
+                         ratio_norm = ratio_norm_,
+                         ratio_norm_image = ratio_norm_image_,
+                         mask1 = mask1_lowdensity,
+                         mask1_updated = mask1_lowdensity_update,
+                         mask2 = mask2_lowratio,
+                         super_pixel_size=patch_size,
+                         generate_masked_plots = True)
+# You can also generate additional masked HE plots using generate_masked_plots = True, 
+# however please note these images can take a long time to save
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#generate_additionalPlots(prefix = HE_prefix, </span>
-<span class="c1">#                         he = image,</span>
-<span class="c1">#                         he_std_image = he_std_image_,</span>
-<span class="c1">#                         he_std_norm_image = he_std_norm_image_, </span>
-<span class="c1">#                         z_v_image = z_v_image_,</span>
-<span class="c1">#                         z_v_norm_image = z_v_norm_image_, </span>
-<span class="c1">#                         ratio_norm = ratio_norm_,</span>
-<span class="c1">#                         ratio_norm_image = ratio_norm_image_,</span>
-<span class="c1">#                         mask1 = mask1_lowdensity,</span>
-<span class="c1">#                         mask1_updated = mask1_lowdensity_update,</span>
-<span class="c1">#                         mask2 = mask2_lowratio,</span>
-<span class="c1">#                         super_pixel_size=patch_size,</span>
-<span class="c1">#                         generate_masked_plots = False)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
      </div>
@@ -15087,11 +15016,74 @@ Total: 2114
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You can also generate additional masked HE plots using generate_masked_plots = True, </span>
-<span class="c1"># however please note these images can take a long time to save</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
      </div>

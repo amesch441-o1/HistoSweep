@@ -146,7 +146,7 @@ def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_im
 
     # Define where to break the y-axis.Here, break_low covers the lower y-range and break_high the upper portion.
     # Adjust these values based on your histogram's count distribution. (for visualization)
-    break_low = max_count * 0.05 
+    break_low = max_count * 0.1 
     break_high = max_count * 0.99
 
     # Directly create brokenaxes (this internally creates fig properly)
@@ -245,12 +245,12 @@ def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_im
     mask_flat1_updated = mask1_updated.flatten()
 
     # Plot keep and filter points
-    ax.scatter(mean_intensity[~mask_flat1_updated], std_dev[~mask_flat1_updated], color='mediumseagreen', s=0.1, label='Keep', edgecolor='none')
-    ax.scatter(mean_intensity[mask_flat1_updated], std_dev[mask_flat1_updated], color='black', s=0.1, label='Filter', edgecolor='none')
+    ax.scatter(mean_intensity[~mask_flat1_updated], std_dev[~mask_flat1_updated], color='mediumseagreen', s=0.15, label='Keep', edgecolor='none')
+    ax.scatter(mean_intensity[mask_flat1_updated], std_dev[mask_flat1_updated], color='black', s=0.15, label='Filter', edgecolor='none')
 
     # ➡️ Highlight points that were True originally but became False after update
     rescued_mask1 = (mask_flat1 == True) & (mask_flat1_updated == False)
-    ax.scatter(mean_intensity[rescued_mask1], std_dev[rescued_mask1], color='blue', s=0.1, label='Rescued', edgecolor='none')
+    ax.scatter(mean_intensity[rescued_mask1], std_dev[rescued_mask1], color='blue', s=0.15, label='Rescued', edgecolor='none')
 
     ax.set_xlabel('Weighted Mean RGB')
     ax.set_ylabel('Standard Deviation RGB')
@@ -292,7 +292,43 @@ def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_im
     if generate_masked_plots:
 
 
-        ###############  Masked H&E Plots  ###############
+        ###############  Masked H&E Plots (final) ###############
+
+        # Load and resize mask to match H&E dimensions if needed
+
+        # 1. Black where mask = 1 (filtered out)
+        he_black_mask = he.copy()
+        he_black_mask[mask_fullres == 0] = [0, 0, 0]  # Set masked pixels to black
+
+        # Save directly as image
+        Image.fromarray(he_black_mask).save(os.path.join(masked_he_dir, "he_remove_black_mask_overlay.png"))
+        print(f"✅ Saved: he_remove_black_mask_overlay.png")
+
+        # 2. Green where mask = 0 (keep regions highlighted)
+        he_msea_mask = he.copy()
+
+        # Define mediumseagreen RGB color
+        mediumseagreen = np.array([60, 179, 113], dtype=np.uint8)
+
+        # Create overlay
+        green_overlay = np.zeros_like(he)
+        green_overlay[:, :, 0] = mediumseagreen[0]
+        green_overlay[:, :, 1] = mediumseagreen[1]
+        green_overlay[:, :, 2] = mediumseagreen[2]
+
+        alpha = 0.8  # Transparency factor
+
+        mask_keep = (mask_fullres == 1)
+        he_msea_mask[mask_keep] = (alpha * green_overlay[mask_keep] + (1 - alpha) * he_msea_mask[mask_keep]).astype(np.uint8)
+
+        # Save directly as image
+        Image.fromarray(he_msea_mask).save(os.path.join(masked_he_dir, "he_keep_green_mask_overlay.png"))
+        print(f"✅ Saved: he_keep_green_mask_overlay.png")
+
+
+
+
+        ###############  Masked H&E Plots (ratio)  ###############
 
         # Reshape masks to match the superpixel grid
         image_height, image_width = he.shape[:2]
@@ -347,39 +383,6 @@ def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_im
         print(f"✅ Saved: he_keep_green_mask_ratio.png")
 
 
-
-        ###############  Masked H&E Plots  ###############
-
-        # Load and resize mask to match H&E dimensions if needed
-
-        # 1. Black where mask = 1 (filtered out)
-        he_black_mask = he.copy()
-        he_black_mask[mask_fullres == 0] = [0, 0, 0]  # Set masked pixels to black
-
-        # Save directly as image
-        Image.fromarray(he_black_mask).save(os.path.join(masked_he_dir, "he_remove_black_mask_overlay.png"))
-        print(f"✅ Saved: he_remove_black_mask_overlay.png")
-
-        # 2. Green where mask = 0 (keep regions highlighted)
-        he_msea_mask = he.copy()
-
-        # Define mediumseagreen RGB color
-        mediumseagreen = np.array([60, 179, 113], dtype=np.uint8)
-
-        # Create overlay
-        green_overlay = np.zeros_like(he)
-        green_overlay[:, :, 0] = mediumseagreen[0]
-        green_overlay[:, :, 1] = mediumseagreen[1]
-        green_overlay[:, :, 2] = mediumseagreen[2]
-
-        alpha = 0.8  # Transparency factor
-
-        mask_keep = (mask_fullres == 1)
-        he_msea_mask[mask_keep] = (alpha * green_overlay[mask_keep] + (1 - alpha) * he_msea_mask[mask_keep]).astype(np.uint8)
-
-        # Save directly as image
-        Image.fromarray(he_msea_mask).save(os.path.join(masked_he_dir, "he_keep_green_mask_overlay.png"))
-        print(f"✅ Saved: he_keep_green_mask_overlay.png")
 
 
 
