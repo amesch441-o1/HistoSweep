@@ -29,12 +29,21 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
     # Normalize grayscale values
     gray_image = (gray_image / 255 * (glcm_levels - 1)).astype(np.uint8)
 
+
+    # === EARLY RETURN IF NO SUPERPIXELS WERE SELECTED
+    if mask.sum() == 0 :
+        print("✅ Skipping texture analysis — no low density superpixels.")
+        updated_mask = mask.copy()
+        return updated_mask
+
+
     # Initialize maps
     energy_map = np.full(mask.shape, np.nan)
     homogeneity_map = np.full(mask.shape, np.nan)
     entropy_map = np.full(mask.shape, np.nan)
     sharpness_map = np.full(mask.shape, np.nan)
     color_filter_mask = np.zeros(mask.shape, dtype=bool)  # Track bad color removals
+    tracker = 0
 
     for i in range(h_mask):
         for j in range(w_mask):
@@ -52,6 +61,7 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
 
                 if is_green or is_gray or is_too_bright:
                     color_filter_mask[i, j] = True
+                    tracker = tracker+1
                     continue
 
                 # Compute GLCM features
@@ -71,6 +81,14 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
     entropy_map_norm = (entropy_map - np.nanmin(entropy_map)) / (np.nanmax(entropy_map) - np.nanmin(entropy_map))
     sharpness_map_norm = (sharpness_map - np.nanmin(sharpness_map)) / (np.nanmax(sharpness_map) - np.nanmin(sharpness_map))
 
+
+    # === EARLY RETURN IF EVERYTHING IS ALREADY KEPT
+    if mask.sum() - tracker < 2:
+        print("✅ Skipping GMM clustering — all low density superpixels already marked as remove.")
+        updated_mask = mask.copy()
+        return updated_mask
+
+
     def save_colormapped_map(map_norm, title, filename):
         colormap = plt.get_cmap("jet")
         colored = colormap(map_norm)[:, :, :3]
@@ -81,6 +99,7 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
     save_colormapped_map(entropy_map_norm, "Entropy", "glcm_entropy_map_colored.png")
     save_colormapped_map(energy_map_norm, "Energy", "glcm_energy_map_colored.png")
     save_colormapped_map(homogeneity_map_norm, "Homogeneity", "glcm_homogeneity_map_colored.png")
+
 
     # Clustering based on features
     features = pd.DataFrame({
@@ -116,6 +135,21 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
     for cluster_label, count in counts.items():
         print(f"Cluster {cluster_label}: {count}")
     print(f"Total: {total_count}")
+
+    output_path = os.path.join(prefix, output_dir, "texture_analysis_summary.txt")
+
+    with open(output_path, "w") as f:
+        f.write("=== GLCM Metric Means ===\n")
+        f.write(means.to_string())
+        f.write("\n\n=== Cluster Scores ===\n")
+        for cluster_label, score in scores.items():
+            f.write(f"Cluster {cluster_label}: Score = {score:.4f}\n")
+
+        f.write("\n=== Number of Observations per Cluster ===\n")
+        for cluster_label, count in counts.items():
+            f.write(f"Cluster {cluster_label}: {count}\n")
+        f.write(f"Total: {total_count}\n")
+
 
     # Now select the clusters with the two lowest scores
     keep_labels = scores.nsmallest(2).index.tolist()  # list of 2 cluster labels
