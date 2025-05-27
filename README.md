@@ -57,7 +57,7 @@ clean_background_flag = True  # Set False if you want to preserve all fibrous re
 min_size = 10  # Lower for helping retain fibrous regions (e.g., 5), higher for large debris (e.g., 50)
 ```
 
-### 📉 Additional Parameters (Typically Do Not Need to Change)
+### Additional Parameters (Typically Do Not Need to Change)
 
 ```python
 # Size of one square patch (superpixel) used throughout processing
@@ -67,7 +67,7 @@ patch_size = 16  # 16x16 pixels (typically ~8µm if pixel_size = 0.5)
 pixel_size = 0.5  # Final desired resolution; keep as 0.5µm for standardization
 
 # Directory for output 
-output_directory = "HistoSweep_Output2" #Folder for HistoSweep output/results
+output_directory = "HistoSweep_Output" #Folder for HistoSweep output/results
 ```
 
 ---
