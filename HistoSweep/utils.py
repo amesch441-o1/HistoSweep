@@ -5,6 +5,7 @@ import PIL
 from PIL import Image
 import pickle
 import os
+import tifffile
 
 Image.MAX_IMAGE_PIXELS = None
 PIL.Image.MAX_IMAGE_PIXELS = 10e100
@@ -17,6 +18,39 @@ def mkdir(path):
     dirname = os.path.dirname(path)
     if dirname != '':
         os.makedirs(dirname, exist_ok=True)
+
+
+def get_image_filename(prefix):
+    file_exists = False
+    for suffix in ['.jpg', '.png', '.tiff', '.tif']:
+        filename = prefix + suffix
+        if os.path.exists(filename):
+            file_exists = True
+            break
+    if not file_exists:
+        raise FileNotFoundError('Image not found')
+    return filename
+
+
+def smart_save_image(img, prefix, base_name="base", size_threshold=60000):
+    """
+    Save image as JPG if both dimensions are under `size_threshold`, otherwise as TIFF.
+    """
+    h, w = img.shape[:2]
+    print(f"Image size: {h}x{w}")
+
+    if h < size_threshold and w < size_threshold:
+        # Save as JPG
+        path = f"{prefix}{base_name}.jpg"
+        Image.fromarray(img.astype(np.uint8)).save(path, quality=90)
+        print(f"✅ Saved as JPG: {path}")
+    else:
+        # Save as TIFF
+        path = f"{prefix}{base_name}.tiff"
+        tifffile.imwrite(path, img, bigtiff=True)
+        print(f"✅ Saved as TIFF: {path}")
+
+
 
 
 def read_string(filename):

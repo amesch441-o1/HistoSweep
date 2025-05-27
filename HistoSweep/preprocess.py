@@ -2,8 +2,10 @@
 import argparse
 import numpy as np
 from einops import reduce
-from utils import load_image, save_image, load_mask
+from utils import load_image, save_image, load_mask, get_image_filename, smart_save_image
 from image import crop_image
+from PIL import Image
+import os
 
 
 def adjust_margins(img, pad, pad_value=None):
@@ -29,6 +31,8 @@ def reduce_mask(mask, factor):
     return mask
 
 
+
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--prefix', type=str)
@@ -39,30 +43,30 @@ def get_args():
     return args
 
 
+
 def main():
 
     args = get_args()
     pad = args.patchSize**2
 
-    if args.image:
-        # load histology image
-        img = load_image(args.prefix+'he-scaled.jpg')
-        # pad image with white to make dimension divisible by 256
-        img = adjust_margins(img, pad=pad, pad_value=255)
-        # save histology image
-        save_image(img, f'{args.prefix}he.jpg')
 
-    if args.mask:
-        # load tissue mask
-        mask = load_mask(args.prefix+'mask-scaled.png')
-        # pad mask with False to make dimension divisible by 256
-        mask = adjust_margins(mask, pad=pad, pad_value=mask.min())
-        # save tissue mask
-        save_image(mask, f'{args.prefix}mask.png')
-        # save_image(~mask, f'{args.prefix}mask-whitebg.png')
-        mask = reduce_mask(mask, factor=16)
-        save_image(mask, f'{args.prefix}mask-small.png')
+    # === Usage ===
+    if args.image:
+        # Load histology image from .jpg or .tif
+
+        img = load_image(get_image_filename(args.prefix+'he-scaled'))
+
+        # Pad image to match model input constraints
+        img = adjust_margins(img, pad=pad, pad_value=255)
+
+        # Save padded version as .jpg or .tif depending on your needs
+        smart_save_image(img, args.prefix, base_name="he", size_threshold=10000)
+
 
 
 if __name__ == '__main__':
     main()
+
+
+
+

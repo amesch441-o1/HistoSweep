@@ -9,7 +9,8 @@ from skimage.filters import threshold_otsu
 from brokenaxes import brokenaxes
 
 
-def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_image, z_v_norm_image, ratio_norm, ratio_norm_image, mask1, mask1_updated, mask2, super_pixel_size=16, generate_masked_plots = False):
+def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_image, z_v_norm_image, ratio_norm, 
+ratio_norm_image, mask1, mask1_updated, mask2, output_dir, super_pixel_size=16, generate_masked_plots = False):
     """
     Generate additional plots for quality control and visualization.
 
@@ -31,10 +32,10 @@ def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_im
     """
 
     # Step 1: Create directories
-    output_dir = os.path.join(prefix, "HistoSweep_Output/AdditionalPlots")
-    masked_he_dir = os.path.join(output_dir, "maskedHE_plots")
-    filtering_dir = os.path.join(output_dir, "filtering_plots")
-    texture_dir = os.path.join(output_dir, "textureAnalysis_plots/masks")
+    output_dir_plots = os.path.join(prefix, output_dir, "AdditionalPlots")
+    masked_he_dir = os.path.join(output_dir_plots, "maskedHE_plots")
+    filtering_dir = os.path.join(output_dir_plots, "filtering_plots")
+    texture_dir = os.path.join(output_dir_plots, "textureAnalysis_plots/masks")
 
     os.makedirs(masked_he_dir, exist_ok=True)
     os.makedirs(filtering_dir, exist_ok=True)
@@ -44,8 +45,8 @@ def generate_additionalPlots(prefix, he, he_std_image, he_std_norm_image, z_v_im
 
 
     # Step 2: Load masks
-    mask_path = os.path.join(f'{prefix}/HistoSweep_Output', "mask.png")
-    mask_small_path = os.path.join(f'{prefix}/HistoSweep_Output', "mask-small.png")
+    mask_path = os.path.join(f'{prefix}/{output_dir}', "mask.png")
+    mask_small_path = os.path.join(f'{prefix}/{output_dir}', "mask-small.png")
 
     mask_fullres = np.array(Image.open(mask_path))
     mask_small = np.array(Image.open(mask_small_path))

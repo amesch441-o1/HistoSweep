@@ -6,7 +6,7 @@ from skimage import morphology
 from PIL import Image
 from utils import save_pickle
 
-def generate_final_mask(prefix, he, mask1_updated, mask2, output_dir="HistoSweep_Output", clean_background = True, super_pixel_size=16, minSize = 10):
+def generate_final_mask(prefix, he, mask1_updated, mask2, output_dir, clean_background = True, super_pixel_size=16, minSize = 10):
 
 
     # Combine masks

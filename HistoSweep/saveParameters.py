@@ -1,10 +1,10 @@
 import os
 
 
-def saveParams(prefix, need_scaling_flag, need_preprocessing_flag, pixel_size_raw,density_thresh,clean_background_flag,min_size,patch_size,pixel_size):
+def saveParams(prefix, output, need_scaling_flag, need_preprocessing_flag, pixel_size_raw,density_thresh,clean_background_flag,min_size,patch_size,pixel_size):
 
 	# Output file path
-	output_dir = os.path.join(prefix, "HistoSweep_Output")
+	output_dir = f"{prefix}{output}"
 	os.makedirs(output_dir, exist_ok=True)
 	param_file = os.path.join(output_dir, "HistoSweep_parameters.txt")
 

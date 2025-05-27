@@ -11,8 +11,11 @@ import pandas as pd
 from sklearn.mixture import GaussianMixture
 import cv2
 
-def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=64, output_dir="HistoSweep_Output/AdditionalPlots/textureAnalysis_plots"):
-    os.makedirs(f"{prefix}/{output_dir}", exist_ok=True)
+def run_texture_analysis(prefix, image, tissue_mask, output_dir, patch_size=16, glcm_levels=64):
+
+    output = f"{prefix}/{output_dir}/AdditionalPlots/textureAnalysis_plots/"
+    
+    os.makedirs(output, exist_ok=True)
 
     # Convert image to grayscale
     gray_image = rgb2gray(image)
@@ -93,7 +96,7 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
         colormap = plt.get_cmap("jet")
         colored = colormap(map_norm)[:, :, :3]
         colored = (colored * 255).astype(np.uint8)
-        Image.fromarray(colored).save(os.path.join(f"{prefix}/{output_dir}", filename))
+        Image.fromarray(colored).save(os.path.join(output, filename))
         print(f"✅ {title} map saved as '{filename}'")
 
     save_colormapped_map(entropy_map_norm, "Entropy", "glcm_entropy_map_colored.png")
@@ -136,7 +139,7 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
         print(f"Cluster {cluster_label}: {count}")
     print(f"Total: {total_count}")
 
-    output_path = os.path.join(prefix, output_dir, "texture_analysis_summary.txt")
+    output_path = os.path.join(output, "texture_analysis_summary.txt")
 
     with open(output_path, "w") as f:
         f.write("=== GLCM Metric Means ===\n")
@@ -171,7 +174,7 @@ def run_texture_analysis(prefix, image, tissue_mask, patch_size=16, glcm_levels=
             else:
                 cluster_rgb[i, j] = [255, 0, 0]  # red
 
-    Image.fromarray(cluster_rgb).save(os.path.join(prefix, output_dir, "cluster_labels_colored.png"))
+    Image.fromarray(cluster_rgb).save(os.path.join(output, "cluster_labels_colored.png"))
     print("\n✅ Clustered texture map saved as 'cluster_labels_colored.png'")
 
 

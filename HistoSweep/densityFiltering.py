@@ -3,7 +3,7 @@ import numpy as np
 from scipy.ndimage import gaussian_filter
 
 
-def compute_low_density_mask(z_v_image, he_std_image, ratio_norm, density_thresh=100):
+def compute_low_density_mask(z_v_image, he_std_image, ratio_norm,  density_thresh=100):
     # Step 1: Histogram binning
     bin_n = int(len(ratio_norm) * 0.00005)
     #print(f"Number of bins: {bin_n}")

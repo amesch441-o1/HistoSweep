@@ -6,9 +6,13 @@ from PIL import Image
 import PIL
 from skimage.transform import rescale
 import numpy as np
+import tifffile
+import cv2
+
+
 from utils import (
         load_image, save_image, read_string, write_string,
-        load_tsv, save_tsv)
+        load_tsv, save_tsv, smart_save_image)
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -17,7 +21,7 @@ PIL.Image.MAX_IMAGE_PIXELS = 10e100
 
 def get_image_filename(prefix):
     file_exists = False
-    for suffix in ['.jpg', '.png', '.tiff']:
+    for suffix in ['.jpg', '.png', '.tiff', '.tif']:
         filename = prefix + suffix
         if os.path.exists(filename):
             file_exists = True
@@ -36,6 +40,15 @@ def rescale_image(img, scale):
         raise ValueError('Unrecognized image ndim')
     img = rescale(img, scale, preserve_range=True)
     return img
+
+def rescale_image_cv2(img, scale):
+    h,w = img.shape[:2]
+    new_size = (int(w*scale), int(h*scale))
+    img_rescaled = cv2.resize(img, new_size, interpolation=cv2.INTER_LINEAR)
+    return img_rescaled
+
+
+
 
 
 def get_args():
@@ -63,23 +76,14 @@ def main():
         img = img.astype(np.float32)
         print(f'Rescaling image (scale: {scale:.3f})...')
         t0 = time()
-        img = rescale_image(img, scale)
+        img = rescale_image_cv2(img, scale)
         print(int(time() - t0), 'sec')
         img = img.astype(np.uint8)
         print(img.shape)
-        save_image(img, args.prefix+'he-scaled.jpg')
+        #save_image(img, args.prefix+'he-scaled.jpg')
+        #tifffile.imwrite(args.prefix+"he-scaled.tiff", img, bigtiff=True)
+        smart_save_image(img, args.prefix, base_name="he-scaled", size_threshold=10000)
 
-    if args.mask:
-        mask = load_image(args.prefix+'mask-raw.png')
-        mask = mask > 0
-        if mask.ndim == 3:
-            mask = mask.any(2)
-        print(f'Rescaling mask (scale: {scale:.3f})...')
-        t0 = time()
-        mask = rescale_image(mask.astype(np.float32), scale)
-        print(int(time() - t0))
-        mask = mask > 0.5
-        save_image(mask, args.prefix+'mask-scaled.jpg')
 
 
 
