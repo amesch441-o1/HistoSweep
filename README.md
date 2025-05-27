@@ -118,7 +118,7 @@ output_directory = "HistoSweep_Output" #Folder for HistoSweep output/results
 
 1. Download `HistoSweep/`.
 2. Create new project directory in **HE** folder.
-3. Place `he-raw.jpg` in your project folder.
+3. Place `he-raw.jpg` (.tiff, .png, .jpg are all compatible) in your project folder.
 4. Open and configure `Run_HistoSweep.ipynb`.
 5. Press **Run All**!
 6. Enjoy your clean, high-quality masks and plots.
