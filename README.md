@@ -65,6 +65,9 @@ patch_size = 16  # 16x16 pixels (typically ~8µm if pixel_size = 0.5)
 
 # Target pixel size (in microns)
 pixel_size = 0.5  # Final desired resolution; keep as 0.5µm for standardization
+
+# Directory for output 
+output_directory = "HistoSweep_Output2" #Folder for HistoSweep output/results
 ```
 
 ---
