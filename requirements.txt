@@ -7,3 +7,4 @@ pillow==11.0.0
 scikit-image==0.24.0
 scikit-learn==1.6.1
 scipy==1.13.1
+tifffile==2025.5.26
