@@ -18,9 +18,9 @@ HistoSweep is designed to be **easy to run** with no GPU requirements:
    (It contains all `.py` scripts and the Jupyter Notebook)
 
 2. **Place** your H&E image in your working directory (e.g. HE/demo):
-   - If **unscaled/unprocessed**, name it: `he-raw.jpg`
-   - If **scaled/unprocessed**, name it: `he-scaled.jpg`
-   - If **already scaled and preprocessed**, name it: `he.jpg`
+   - If **unscaled/unprocessed**, name it: `he-raw.jpg` (.tif, .tiff, .png, .jpg are all compatible)  
+   - If **scaled/unprocessed**, name it: `he-scaled.jpg` (.tif, .tiff, .png, .jpg are all compatible)  
+   - If **already scaled and preprocessed**, name it: `he.jpg` (.tif, .tiff, .png, .jpg are all compatible)  
 
 3. **Open** the Jupyter Notebook: `Run_HistoSweep.ipynb`
 
