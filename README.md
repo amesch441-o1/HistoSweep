@@ -32,7 +32,7 @@ HistoSweep is designed to be **easy to run** with no GPU requirements:
 
 ## ⚙️ Input Parameters
 
-### 🗾 USER-DEFINED PARAMETERS
+### USER-DEFINED PARAMETERS
 
 ```python
 # Path prefix to your H&E image folder (This folder should be placed inside the HistoSweep main directory)
