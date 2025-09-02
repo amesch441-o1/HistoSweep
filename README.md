@@ -99,7 +99,7 @@ output_directory = "HistoSweep_Output" #Folder for HistoSweep output/results
 
 ---
 
-## ✨ Why Use HistoSweep?
+## Why Use HistoSweep?
 
 - Fully unsupervised: No training data required.
 - Fast and lightweight.
