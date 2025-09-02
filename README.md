@@ -11,7 +11,7 @@
 ##  What’s New in HistoSweepO1
 
 -  Optimized for **speed and memory efficiency**
--  Compatible with **Jupyter notebooks**, **Python command-line scripts**, and **Bash job submission**
+-  Compatible with **Jupyter notebooks**, **Python command-line scripts**, and **Batch job submission**
 -  Supports **single-image mode** or **automated multi-image mode**
 -  Enables **parallel processing** of multiple H&E images depending on available nodes
 -  Supports a wide range of file extensions including whole-slide image formats:  
@@ -29,7 +29,7 @@ Run `Run_HistoSweep.ipynb` for an interactive, step-by-step demo of the pipeline
 ### 2. Python Command Line Script
 Run `run_HistoSweep_single.py` or `run_HistoSweep_multi.py` depending on the mode.
 
-### 3. Bash Job Submission
+### 3. Batch Job Submission (bsub < run_HistoSweep.sh)
 Use `run_HistoSweep.sh` and select `mode='single'` or `mode='multi'`.
 
 ---
