@@ -29,8 +29,8 @@ Run `Run_HistoSweep.ipynb` for an interactive, step-by-step demo of the pipeline
 ### 2. Python Command Line Script
 Run `run_HistoSweep_single.py` or `run_HistoSweep_multi.py` depending on the mode.
 
-### 3. Batch Job Submission (bsub < run_HistoSweep.sh)
-Use `run_HistoSweep_batch.sh` and select `mode='single'` or `mode='multi'`.
+### 3. Batch Job Submission (bsub < run_HistoSweep_job.sh)
+Use `run_HistoSweep_job.sh` and select `mode='single'` or `mode='multi'`.
 
 ---
 
