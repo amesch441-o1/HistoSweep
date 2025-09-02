@@ -5,7 +5,7 @@ from HistoSweep_single import run_histosweep_single
 # ==================  USER CONFIGURATION ==================
 
 HE_prefix = 'HE/demo/' # Path prefix to your H&E image folder
-output_folder = "HistoSweep_Output" #Folder for HistoSweep results
+output_dir = f"{HE_prefix}/HistoSweep_Output"  #Folder for HistoSweep results
 
 # Processing flags
 need_scaling_flag = True 
@@ -28,7 +28,7 @@ min_size = 10             # Parameter used to remove isolated debris and small s
 
 user_config = {
     'HE_prefix': f"{HE_prefix}",
-    'output_dir':  f"{HE_prefix}/HistoSweep_Output",
+    'output_dir':  f"{output_dir}",
     'pixel_size_raw': pixel_size_raw,
     'density_thresh': density_thresh,
     'clean_background_flag': clean_background_flag,
