@@ -73,7 +73,7 @@ def main():
             print(f"✅ Found scaled image in current directory: {img_path}")
         except FileNotFoundError:
             print("⚠️ Scaled image not found in output or current directory — falling back to original.")
-            img_path = get_image_filename(args.prefix, False)
+            img_path = get_image_filename(os.path.join(args.prefix, 'he-raw'), False)
             print(f"✅ Using original image: {img_path}")
 
 
