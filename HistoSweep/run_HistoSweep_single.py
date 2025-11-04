@@ -74,6 +74,7 @@ def main():
     os.makedirs(config['output_dir'], exist_ok=True)
 
     run_histosweep_single(
+        image_path = config['HE_prefix'],
         output_base_dir=config['output_dir'],
         pixel_size_raw=config['pixel_size_raw'],
         density_thresh=config['density_thresh'],
